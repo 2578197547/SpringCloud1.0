@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: sc-auth-server
+server:
+  port: 8078

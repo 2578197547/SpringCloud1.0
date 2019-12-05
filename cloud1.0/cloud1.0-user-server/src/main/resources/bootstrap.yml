@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sc-user-server
+server:
+  port: 8087
+

@@ -1,0 +1,13 @@
+server:
+  port: 9090
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/2578197547/hello-world.git
+          #username:
+          #password:
+          search-paths: config-repo
+  application:
+    name: sc-configserver
