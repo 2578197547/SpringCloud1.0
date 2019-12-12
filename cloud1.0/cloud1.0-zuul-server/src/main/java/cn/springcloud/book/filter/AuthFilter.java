@@ -51,11 +51,12 @@ public class AuthFilter extends ZuulFilter {
 	
 	//自定义的鉴权处理
 	public static void authUser(RequestContext ctx) {
-		HttpServletRequest request = ctx.getRequest();
+		//这里注意，不能把所有头部信息都重新添加一遍，因为zuul本身在转发时会会我们添加头部，重复添加会抛出异常而导致访问失败（post）
+/*		HttpServletRequest request = ctx.getRequest();
 		Map<String, String> header = httpRequestToMap(request);
 		for (Map.Entry<String, String> entry : header.entrySet()) {
 			ctx.addZuulRequestHeader(entry.getKey(), entry.getValue());
-		}
+		}*/
 	}
 	
 }
