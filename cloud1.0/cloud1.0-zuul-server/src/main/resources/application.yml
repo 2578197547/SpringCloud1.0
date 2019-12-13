@@ -21,6 +21,7 @@ ribbon:
   MaxAutoRetriesNextServer: 0 #要重试的下一个服务的最大数量（不包括第一个服务）
   OkToRetryOnAllOperations: false
 zuul:
+  sensitive-headers:
   ribbonIsolationStrategy: THREAD
   threadPool:
     useSeparateThreadPools: true
