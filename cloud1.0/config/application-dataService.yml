@@ -1,3 +1,12 @@
+spring:
+  profiles:
+    include: redis
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: testlocalhost
+    username: admin
+    password: admin
 eureka:
   client:
     serviceUrl:
@@ -12,10 +21,3 @@ management:
       exposure:
         include: refresh,bus-refresh,hystrix.stream
 ##        include: "*"
-spring:
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    virtual-host: testlocalhost
-    username: admin
-    password: admin
