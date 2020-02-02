@@ -17,11 +17,13 @@ public class SysUser {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "name")
+	@Column(name = "name",nullable = false, unique = true)
 	private String name;
 	@Column(name = "password")
 	private String password;
 
+/*    @ManyToMany(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+    @JoinTable(name = "sys_role_user",joinColumns = @JoinColumn(name="sys_user_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "sys_role_id",referencedColumnName = "id"))*/
 	@Transient
 	private List<SysRole> roles;
 

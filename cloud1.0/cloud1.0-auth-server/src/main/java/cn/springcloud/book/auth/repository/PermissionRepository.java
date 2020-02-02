@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import cn.springcloud.book.auth.entity.Permission;
 
 @Repository
-public interface PermissionRepository extends
-		CrudRepository<Permission, Integer> {
+public interface PermissionRepository extends CrudRepository<Permission, Integer> {
 
 }

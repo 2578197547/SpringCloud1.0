@@ -21,6 +21,7 @@
 		<module>cloud1.0-hystrix-dashboard</module>
 		<module>cloud1.0-auth-server</module>
 		<module>cloud1.0-user-server</module>
+		<module>cloud1.0-data-service</module>
   </modules>
 
     <properties>

@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient//配置本应用将使用服务注册和服务发现
-@EnableCircuitBreaker//启动断路器
+@EnableCircuitBreaker//启动断路器(熔断)
 public class AuthServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AuthServerApplication.class, args);

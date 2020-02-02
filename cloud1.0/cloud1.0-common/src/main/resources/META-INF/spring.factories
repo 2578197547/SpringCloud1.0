@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.springcloud.book.common.config.CommonConfiguration
+  cn.springcloud.book.common.config.CommonConfiguration,\
+  cn.springcloud.book.common.config.SessionConfig,\
+  cn.springcloud.book.common.config.RedisConfig

@@ -47,8 +47,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			for (Permission permission : permissions) {
 				if (permission != null && permission.getName() != null) {
 					GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
-							"ROLE_" + permission.getName());// spring
-															// Security中权限名称必须满足ROLE_XXX
+							"ROLE_" + permission.getName());// Security中权限名称必须满足ROLE_XXX
 					grantedAuthorities.add(grantedAuthority);
 				}
 			}

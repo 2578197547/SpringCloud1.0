@@ -1,12 +1,13 @@
 package cn.springcloud.book.user.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 //系统权限
 @Entity
 @Table(name = "sys_permission")
-public class Permission {
- 
-    @Id
+public class Permission{
+	@Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

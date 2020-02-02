@@ -1,12 +1,14 @@
 package cn.springcloud.book.user.config;
 
 import java.io.IOException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -44,9 +46,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+    	//解决sessionId在添加security权鉴后每次访问改变问题
+    	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+    	http.sessionManagement().sessionFixation().none();
+    	
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/product/**","/registry/**", "/user/login/**","/actuator/hystrix.stream").permitAll()
+                .antMatchers("/product/**","/registry/**", "/user/login/**","/actuator/hystrix.stream","/getProviderData").permitAll()
                 .antMatchers("/**").authenticated();
                 //.antMatchers("/**").permitAll();
     }

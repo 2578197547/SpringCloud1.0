@@ -56,3 +56,6 @@ class HelloController {
         return this.hello;
     }
 }
+
+http://localhost:9090/actuator/bus-refresh(post)
+http://localhost:9090/actuator/bus-refresh?destination=customers:8000(post)

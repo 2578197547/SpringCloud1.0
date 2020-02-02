@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: redis
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/oauth2?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
@@ -11,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    
+
 eureka:
   client:
     serviceUrl:
@@ -27,6 +29,8 @@ management:
         include: hystrix.stream
 feign:
   hystrix:
+    enabled: true
+  httpclient:
     enabled: true
 ribbon:
   ConnectTimeout: 6000

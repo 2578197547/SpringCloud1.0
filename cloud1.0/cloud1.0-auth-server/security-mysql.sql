@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `sys_role_user`;
  
 CREATE TABLE `sys_role_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Sys_user_id` int(11) DEFAULT NULL,
+  `sys_user_id` int(11) DEFAULT NULL,
   `sys_role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;

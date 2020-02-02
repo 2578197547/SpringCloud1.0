@@ -1,3 +1,6 @@
+spring:
+  profiles:
+    include: redis
 eureka:
   client:
     serviceUrl:
@@ -22,14 +25,14 @@ ribbon:
   OkToRetryOnAllOperations: false
 zuul:
   sensitive-headers:
-  ribbonIsolationStrategy: THREAD
+#  ribbonIsolationStrategy: THREAD
   threadPool:
     useSeparateThreadPools: true
     threadPoolKeyPrefix: zuulgateway
   max:
     host:
-      max-per-route-connections: 200
-      max-total-connections: 500
+      max-per-route-connections: 600
+      max-total-connections: 1000
   host:
     socket-timeout-millis: 5000
     connect-timeout-millis: 10000

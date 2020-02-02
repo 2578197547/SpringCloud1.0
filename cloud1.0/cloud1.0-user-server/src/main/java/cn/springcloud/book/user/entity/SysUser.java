@@ -1,14 +1,14 @@
 package cn.springcloud.book.user.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 //系统用户
 @Entity
 @Table(name = "sys_user")
-public class SysUser {
- 
-    @Id
+public class SysUser{
+	@Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

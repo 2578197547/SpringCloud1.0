@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sc-data-service
+  cloud:
+    config:
+      discovery:
+        enabled: true	#开启Config服务发现支持
+        service-id: sc-config-server	#指定server端的name,也就是server端spring.application.name的值
+      label: master
+      name: config-info,application
+      profile: dev,dataService
+server:
+  port: 8099

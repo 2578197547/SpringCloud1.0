@@ -1,13 +1,35 @@
 server:
   port: 9090
 spring:
+  application:
+    name: sc-config-server
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/2578197547/hello-world.git
-          #username:
-          #password:
-          search-paths: config-repo
-  application:
-    name: sc-configserver
+          uri: https://github.com/2578197547/SpringCloud1.0.git	#配置git仓库的地址
+          #username:	#git仓库的账号
+          #password:	#git仓库的密码
+          search-paths: cloud1.0/config	#git仓库地址下的相对地址,可以配置多个,使用,分割
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: testlocalhost
+    username: admin
+    password: admin
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+  instance:
+    prefer-ip-address: true

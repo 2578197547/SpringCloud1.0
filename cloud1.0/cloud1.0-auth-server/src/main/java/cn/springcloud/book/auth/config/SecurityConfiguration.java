@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +40,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        /**
+//         * always – 如果session不存在总是需要创建；
+//         * ifRequired – 仅当需要时，创建session(默认配置)；
+//         * never – 框架从不创建session，但如果已经存在，会使用该session ；
+//         * stateless – Spring Security不会创建session，或使用session；
+//         */
+//    	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+//        /*
+//         * "migrateSession"，即认证时，创建一个新http session，原session失效，属性从原session中拷贝过来
+//         * “none”，原session保持有效；
+//         * “newSession”，新创建session，且不从原session中拷贝任何属性。
+//         */
+//    	http.sessionManagement().sessionFixation().none();
+    	
     	//不拦截/oauth/**，/login/**，/logout/**(requestMatchers用于需要过滤多个HttpSecurity的情况)
         http.requestMatchers().antMatchers("/oauth/**", "/login/**", "/logout/**")//使HttpSecurity接收以"/login/","/oauth/","/logout/"开头请求。
                 .and().authorizeRequests().antMatchers("/oauth/**").authenticated()

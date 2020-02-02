@@ -11,16 +11,37 @@
     <name>cloud1.0-common</name>
     <artifactId>cloud1.0-common</artifactId>
     <dependencies>
-    	<!-- RestTemplate和FeignClient -->
+    	<!-- 用于RestTemplate和FeignClient全局定义 -->
 		<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- 用于JWT解析 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-jwt</artifactId>
+		    <version>1.0.10.RELEASE</version>
+		</dependency>
+		<!-- 用于JSON处理 -->
         <dependency>
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>fastjson</artifactId>
 		    <version>1.2.31</version>
 		</dependency>
+        <!-- redis缓存/session共享-begin -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <!-- redis缓存/session共享-end -->
     </dependencies>
 
     <build>
