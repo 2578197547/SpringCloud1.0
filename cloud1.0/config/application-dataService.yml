@@ -1,8 +1,8 @@
 spring:
   rabbitmq:
-    host: 127.0.0.1
+    host: 134.175.153.50
     port: 5672
-    virtual-host: testlocalhost
+    virtual-host: testhost
     username: admin
     password: admin
 eureka:
