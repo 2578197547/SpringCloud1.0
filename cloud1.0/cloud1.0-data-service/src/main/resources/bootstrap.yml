@@ -11,3 +11,16 @@ spring:
       profile: dev,dataService
 server:
   port: 8099
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+      #defaultZone: http://${eureka.host:134.175.153.50}:${eureka.port:8761}/eureka/
+  instance:
+    prefer-ip-address: true
+log:
+  #path: F:/logs|/root/2019dev/cloud1.0/logs
+  path: F:/logs
+  level: debug
+  name: sc-data-service
+  days: 30

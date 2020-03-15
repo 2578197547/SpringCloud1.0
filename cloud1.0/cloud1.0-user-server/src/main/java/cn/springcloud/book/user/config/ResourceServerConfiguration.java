@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -35,7 +36,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             throw new RuntimeException(e);
         }
         //使用converter.setVerifierKey(publicKey);会出现 Cannot convert access token to JSON
-        converter.setVerifierKey(publicKey);
+        converter.setVerifier(new RsaVerifier(publicKey));
         return converter;
     }
 	

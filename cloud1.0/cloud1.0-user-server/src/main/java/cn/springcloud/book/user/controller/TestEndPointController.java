@@ -1,16 +1,26 @@
 package cn.springcloud.book.user.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
 import cn.springcloud.book.user.service.UserService;
 import cn.springcloud.book.user.utils.BPwdEncoderUtil;
 
@@ -22,6 +32,10 @@ public class TestEndPointController {
     private UserService userService;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
     //-------------------------------开放接口-begin-------------------------------
     @RequestMapping("/product/{id}")
@@ -92,6 +106,30 @@ public class TestEndPointController {
     }
     //-------------------------------restTemplate获取服务-end-------------------------------
 
+    //-------------------------------StringRedisTemplate/RedisTemplate缓存测试-begin-------------------------------
+    @RequestMapping("/redisTemplateTest")
+    public String redisTemplateTest() {
+    	stringRedisTemplate.opsForValue().set("stringRedisTemplate", "set-stringRedisTemplate");
+    	Map<String,Object> map1 = new HashMap<String,Object>();
+    	map1.put("1", System.currentTimeMillis());
+    	map1.put("2", "redisTemplate2");
+    	redisTemplate.opsForValue().set("redisTemplate1", map1);
+        if(!redisTemplate.hasKey("redisTemplate2")){
+        	Map<String,Object> map2 = new HashMap<String,Object>();
+        	map2.put("1", System.currentTimeMillis());
+        	map2.put("2", "redisTemplate2");
+        	redisTemplate.opsForValue().set("redisTemplate2", map2,30, TimeUnit.SECONDS);
+        }
+    	return "stringRedisTemplate:"+stringRedisTemplate.opsForValue().get("stringRedisTemplate")
+    			+"<br/>"
+    			+"|redisTemplate1:"+redisTemplate.opsForValue().get("redisTemplate1")
+    			+"<br/>"
+    			+"|redisTemplate2:"+redisTemplate.opsForValue().get("redisTemplate2");
+    }
+    //-------------------------------StringRedisTemplate/RedisTemplate缓存测试-end-------------------------------
+    
+    
+    
     //-------------------------------redis缓存测试-begin-------------------------------
     @RequestMapping("/getRedisData")
     @Cacheable(value="redis-data", keyGenerator="keyGenerator")

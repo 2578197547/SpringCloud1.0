@@ -3,3 +3,9 @@ spring:
     name: sc-user-server
 server:
   port: 8087
+log:
+  #path: F:/logs|/root/2019dev/cloud1.0/logs
+  path: F:/logs
+  level: debug
+  name: sc-user-server
+  days: 30

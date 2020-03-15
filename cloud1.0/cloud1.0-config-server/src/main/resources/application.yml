@@ -15,9 +15,9 @@ spring:
       trace:
         enabled: true
   rabbitmq:
-    host: 127.0.0.1
+    host: 134.175.153.50
     port: 5672
-    virtual-host: testlocalhost
+    virtual-host: testhost
     username: admin
     password: admin
 management:
@@ -31,5 +31,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+      #defaultZone: http://${eureka.host:134.175.153.50}:${eureka.port:8761}/eureka/
   instance:
     prefer-ip-address: true
+#    ip-address: 134.175.153.50
+    ip-address: 127.0.0.1
+    non-secure-port: 9090

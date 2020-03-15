@@ -31,6 +31,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
 	public static final String public_cert = "public.cert";
 	
+	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         Resource resource =  new ClassPathResource(public_cert);
@@ -45,6 +46,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         return converter;
     }
 	
+	@Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }

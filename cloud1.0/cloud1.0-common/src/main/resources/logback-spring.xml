@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!-- https://logback.qos.ch/manual/appenders.html 官网 -->
+<!-- 这个是根配置文件，一定要有的
+scan:是当配置文件被修改后会被重新加载
+scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+-->
+<configuration scan="true">
+    <contextName>cloud1.0</contextName>
+	<!--application.properities中配置的变量-->
+	<springProperty scope="context" name="logLevel" source="log.level"/>
+	<springProperty scope="context" name="logPath" source="log.path"/>
+	<springProperty scope="context" name="logName" source="log.name"/>
+	<springProperty scope="context" name="logDays" source="log.days"/>
+	
+    <!-- 输出到控制台 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- 默认情况下，每个日志事件都会立即刷新到基础输出流。 这种默认方法更安全，因为如果应用程序在没有正确关闭appender的情况下退出，则日志事件不会丢失。
+		但是，为了显着增加日志记录吞吐量，您可能希望将immediateFlush属性设置为false -->
+        <encoder>
+        	<!-- %-5level：级别从左显示5个字符宽度 -->
+            <!-- %msg：日志打印详情 -->
+            <!-- %n:换行符 -->
+            <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %method %line - %msg%n</pattern>
+            <!-- 控制台也要使用UTF-8，不要使用GBK，否则会中文乱码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+ 
+	<!-- 输出到文件 
+	encoding：日志的编码
+	file：指定当前生成的日志文件名称
+	rollingPolicy：滚动策略
+	FileNamePattern：移动文件最后的名称，跟file标签结合使用，ps:file里面的内容是  1.txt,那么，FileNamePattern里面写的是2.txt，那么最后文件名就为2.txt,如果最后结尾是gz或者zip，那么，就会自动打成压缩包-->
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+   	    <file>${logPath}${file.separator}${logName}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>
+                [%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %method  %line - %msg%n
+            </pattern>
+            <!-- 记录日志的编码:此处设置字符集 - -->
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}${file.separator}%d{yyyy-MM-dd}${file.separator}%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<!-- 每产生一个日志文件，该日志文件的保存期限为30天, ps:maxHistory的单位是根据fileNamePattern中的翻转策略自动推算出来的,例如上面选用了yyyy-MM-dd,则单位为天
+			如果上面选用了yyyy-MM,则单位为月,fileNamePattern单位默认为yyyy-MM-dd-->
+            <maxHistory>${logDays}</maxHistory>
+            <!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成5KB看效果 -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- 每个日志文件到10mb的时候开始切分，最多保留30天，但最大到20GB，哪怕没到30天也要删除多余的日志 -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+ 
+	<!-- logger：日志单位
+	name：是你当前扫描的哪个包
+	level：日志的级别
+	additivity：默认为true,标识向上级传递日志(这里即向root传递日志)。
+	appender-ref：appender的引用
+	-->
+    <logger name="com.apexsoft.timer" level="${logLevel}">
+        <appender-ref ref="fileLog" />
+        <appender-ref ref="stdout"  />
+    </logger>
+
+	<!-- 
+	默认根节点是INFO级别的日志 (如果直接使用root不使用logger，在输出debug级别时会输出大量与业务无关日志)
+	root：logger的根节点，就这一个，默认名称就是root
+	level：日志级别
+	appender-ref：确定使用哪个appender
+	 -->
+    <root level="INFO">
+        <appender-ref ref="fileLog" />
+        <appender-ref ref="stdout"  />
+    </root>
+</configuration>

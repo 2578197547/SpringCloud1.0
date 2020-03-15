@@ -3,9 +3,10 @@ spring:
     include: redis
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oauth2?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://134.175.153.50:3306/cloud1.0?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
     username: root
-    password: root
+    #password: root
+    password: Xielijie*123
   jpa:
     properties:
       hibernate:
@@ -18,6 +19,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+      #defaultZone: http://${eureka.host:134.175.153.50}:${eureka.port:8761}/eureka/
   instance:
     prefer-ip-address: true
 management:

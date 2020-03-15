@@ -3,3 +3,9 @@ spring:
     name: sc-auth-server
 server:
   port: 8078
+log:
+  #path: F:/logs|/root/2019dev/cloud1.0/logs
+  path: F:/logs
+  level: debug
+  name: sc-auth-server
+  days: 30

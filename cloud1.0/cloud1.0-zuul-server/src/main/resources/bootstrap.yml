@@ -3,4 +3,9 @@ spring:
     name: sc-zuul-server
 server:
   port: 7777
-
+log:
+  #path: F:/logs|/root/2019dev/cloud1.0/logs
+  path: F:/logs
+  level: debug
+  name: sc-zuul-server
+  days: 30
